@@ -12,11 +12,11 @@ inputs:
   token:
     description: "Github token for create checks"
     required: true
-  min_coverage:
-    description: "Minimum coverage"
-    default: "80"
-  result_path:
-    description: "Json with coverage result"
+  base_result_path:
+    description: "JSON with coverage result from base branch"
+    required: true
+  head_result_path:
+    description: "JSON with coverage result from head branch"
     required: true
 runs:
   using: "docker"

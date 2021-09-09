@@ -21,9 +21,9 @@ end
 }
 
 @coverage_type = ENV['INPUT_TYPE']
-@report_path = ENV['INPUT_RESULT_PATH']
-@data = { min: ENV['INPUT_MIN_COVERAGE'] }
+@base_report_path = ENV['INPUT_BASE_RESULT_PATH']
+@head_report_path = ENV['INPUT_HEAD_RESULT_PATH']
 
-@report = CoverageReport.generate(@coverage_type, @report_path, @data)
+@report = CoverageReport.generate(@coverage_type, @base_report_path, @head_report_path)
 
 GithubCheckRunService.new(@report, @github_data, ReportAdapter).run

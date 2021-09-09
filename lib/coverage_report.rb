@@ -2,20 +2,21 @@
 
 class CoverageReport
   class << self
-    def generate(type, report_path, data)
+    def generate(type, base_report_path, head_report_path)
       if type == 'simplecov'
-        simplecov(report_path, data)
-      elsif type == 'lcov'
-        lcov(report_path, data)
+        simplecov(base_report_path, head_report_path)
+      # elsif type == 'lcov'
+      #   lcov(report_path, data)
       else
         raise 'InvalidCoverageReportType'
       end
     end
 
-    def simplecov(report_path, data)
-      report = read_json(report_path)
-      minumum_percent = data[:min]
-      covered_percent = report.dig('result', 'covered_percent')
+    def simplecov(base_report_path, head_report_path)
+      base_report = read_json(base_report_path)
+      head_report = read_json(head_report_path)
+      minumum_percent = base_report.dig('result', 'covered_percent') || base_report.dig('result', 'line')
+      covered_percent = head_report.dig('result', 'covered_percent') || head_report.dig('result', 'line')
       { 'lines' => { 'covered_percent' => covered_percent, 'minumum_percent' => minumum_percent } }
     end
 
