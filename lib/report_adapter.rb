@@ -7,7 +7,7 @@ class ReportAdapter
     ANNOTATION_LEVEL = { notice: 'notice', warning: 'warning', failure: 'failure' }.freeze
 
     def conslusion(report)
-      lines_covered_percent(report) >= lines_minimum_percent(report).to_f ? CONCLUSION_TYPES[:success] : CONCLUSION_TYPES[:failure]
+      lines_covered_percent(report).to_f.floor(1) >= lines_minimum_percent(report).to_f.floor(1) ? CONCLUSION_TYPES[:success] : CONCLUSION_TYPES[:failure]
     end
 
     def summary(report)
